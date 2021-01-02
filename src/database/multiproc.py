@@ -79,9 +79,10 @@ def moveData():
 #     print(i)
 
 def job():
+  print("Job start .... multiprocessos")
   inserData()
-  # testData()
   moveData()
+  print("Job end .... multiprocessos")
 
 # job()
 
