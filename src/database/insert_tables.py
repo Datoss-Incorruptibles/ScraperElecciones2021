@@ -396,7 +396,7 @@ def insertEduBasic():
 
 def insertSentPenal():
 
-  print(f'END inserting to candidato_sent_penal at:{datetime.datetime.now()}')
+  print(f'START inserting to candidato_sent_penal at:{datetime.datetime.now()}')
 
   con = cd.connect_postgres()
   cur = con.cursor()

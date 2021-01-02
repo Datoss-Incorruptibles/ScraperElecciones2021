@@ -150,6 +150,7 @@ def job():
     GetExpedientesLista()
     GetCandidatos()
     GetPersonalData()
+    print("Job END .... scraper")
 
 # schedule.every(55).minutes.at(":00").do(job)
 schedule.every().hour.at(":25").do(job)
