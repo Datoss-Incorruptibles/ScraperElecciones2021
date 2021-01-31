@@ -17,13 +17,25 @@ def inserData():
     p5 = Process(target=it.insertEduNoUni)
     p6 = Process(target=it.insertEduTecnica)
     p7 = Process(target=it.insertEduUni)
-    p8 = Process(target=it.insertExpLab)
 
-    p9 = Process(target=it.insertSentCivil)
-    p10 = Process(target=it.insertSentPenal)
+    p8 = Process(target=it.insertEduPostGrado)
+
+    p9 = Process(target=it.insertExpLab)
+
+    p10 = Process(target=it.insertSentCivil)
+    p11 = Process(target=it.insertSentPenal)
     
-    p11 = Process(target=it.insertCargoEleccion)
-    p12 = Process(target=it.insertCargoPartidario)
+    p12 = Process(target=it.insertCargoEleccion)
+    p13 = Process(target=it.insertCargoPartidario)
+
+    p14 = Process(target=it.insertInfoAdicional)
+
+    p15 = Process(target=it.insertIngresos)
+    p16 = Process(target=it.insertBienMueble)
+    p17 = Process(target=it.insertBienInmueble)
+
+    p18 = Process(target=it.insertPlanDeGobierno)
+    p19 = Process(target=it.insertPlanDeGobiernoDimensiones)
 
 
     p1.start()
@@ -38,7 +50,14 @@ def inserData():
     p10.start()
     p11.start()
     p12.start()
+    p13.start()
 
+    p14.start()
+    p15.start()
+    p16.start()
+    p17.start()
+    p18.start()
+    p19.start()
 
     p1.join()
     p2.join()
@@ -52,6 +71,13 @@ def inserData():
     p10.join()
     p11.join()
     p12.join()
+    p13.join()
+    p14.join()
+    p15.join()
+    p16.join()
+    p17.join()
+    p18.join()
+    p19.join()
 
   print(f'insert data to DB END at :{datetime.datetime.now()}')
 
@@ -84,13 +110,13 @@ def job():
   moveData()
   print("Job end .... multiprocessos")
 
-# job()
+job()
 
 # schedule.every(15).minutes.at("55:00").do(job)
-schedule.every().hour.at(":55").do(job)
+# schedule.every().hour.at(":48").do(job)
 # # schedule.every().day.at("02:30").do(job)
 # schedule.every().minute.at(":50").do(job)
 
-while True:
-  schedule.run_pending()
-  time.sleep(1)
+# while True:
+#   schedule.run_pending()
+#   time.sleep(1)

@@ -145,21 +145,66 @@ def GetPersonalData():
 
 
 
-def job():
-    print("Job start .... scraper")
-    GetExpedientesLista()
-    GetCandidatos()
-    GetPersonalData()
-    print("Job END .... scraper")
 
+
+def GetPlanesDeGobierno():
+  print(f'Start getting Data to Planes de gobierno.json at {datetime.datetime.now()}')
+
+  with open(f'./currentRawData/GetExpedientesLista.json', 'r', encoding='utf-8')as outFile:
+    doc = outFile.read()
+    # print(doc)
+    docString = json.loads(doc)
+    # print(docString)
+
+    PARTIDOSPOLITICOSBYREGION = docString
+    idProcesoElectoral = 110
+
+
+  counter = 0
+  listaDePlanesTotal = []
+  for PARTIDO_POLITICO in PARTIDOSPOLITICOSBYREGION:
+    urlPlanes = f'https://plataformaelectoral.jne.gob.pe/Candidato/GetPlanGobiernoById/{PARTIDO_POLITICO["idPlanGobierno"]}'
+    agent = {"User-Agent":"Mozilla/5.0"}
+    session = requests.Session()
+    retry = Retry(connect=3, backoff_factor=0.5)
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)   
+    r = session.get(urlPlanes, headers=agent)
+    responseJSON =r.json()
+    # Lista de candidatos por partido y region
+    plan = responseJSON["data"]
+
+    # counter = counter + 1
+    listaDePlanesTotal.append(plan)
+
+
+  with open('./currentRawData/PlanesDeGobierno.json', 'w') as json_file:
+    json.dump(listaDePlanesTotal, json_file)
+  
+  print(f'End getting GetCandidatos at:{datetime.datetime.now()}')
+
+
+
+
+def job():
+  print("Job start .... scraper")
+  GetExpedientesLista()
+  GetCandidatos()
+  GetPersonalData()
+  GetPlanesDeGobierno()
+  print("Job END .... scraper")
+
+
+# job()
 # schedule.every(55).minutes.at(":00").do(job)
-schedule.every().hour.at(":25").do(job)
+# schedule.every().hour.at(":25").do(job)
 # schedule.every().day.at("02:30").do(job)
 # schedule.every().minute.at(":50").do(job)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+# while True:
+#   schedule.run_pending()
+#   time.sleep(1)
 
 
 
