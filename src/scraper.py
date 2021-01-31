@@ -196,7 +196,7 @@ def job():
   print("Job END .... scraper")
 
 
-# job()
+job()
 # schedule.every(55).minutes.at(":00").do(job)
 # schedule.every().hour.at(":25").do(job)
 # schedule.every().day.at("02:30").do(job)
