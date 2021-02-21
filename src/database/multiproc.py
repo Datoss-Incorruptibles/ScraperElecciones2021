@@ -94,6 +94,7 @@ def moveData():
     shutil.move("../currentRawData/GetExpedientesLista.json", f'../dataHistory/GetExpedientesLista{cleanTime}_.json')
     shutil.move("../currentRawData/GetCandidatos.json", f'../dataHistory/GetCandidatos{cleanTime}_.json')
     shutil.move("../currentRawData/CandidatoDatosHV.json", f'../dataHistory/CandidatoDatosHV{cleanTime}_.json')
+    shutil.move("../currentRawData/PlanesDeGobierno.json", f'../dataHistory/PlanesDeGobierno{cleanTime}_.json')
 
     print(f'MOVE data ENDS at :{datetime.datetime.now()}')
   except:

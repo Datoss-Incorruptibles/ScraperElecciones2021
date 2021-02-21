@@ -98,7 +98,8 @@ def insertGetCandidatos():
               row["strUbiProvinciaPostula"],
               row["strUbiRegionPostula"],
               row["strEstadoExp"],
-              row["idProcesoElectoral"]))
+              row["idProcesoElectoral"]
+              ))
           count+=1
           # con.commit()
           # print("insert row candidato_info_electoral",count," success!")
@@ -162,7 +163,8 @@ def insertInfoPersonal():
               row["strUbigeoDomicilio"],
               row["strUbigeoNacimiento"],
               row["strUbigeoPostula"],
-              row["strUsuario"]))
+              row["strUsuario"]
+              ))
           count+=1
           # con.commit()
           # print("insert row candidato_info_personal",count," success!")
@@ -869,7 +871,8 @@ def insertPlanDeGobierno():
                 row["strRutaArchivo"],
                 row["strExisteArchivoFisico"],
                 row["strPlanGobiernoExistente"],
-                row["strFechaResumenGenerado"]))
+                row["strFechaResumenGenerado"]
+                ))
           count+=1
           con.commit()
           print("insert row ",count," success!")

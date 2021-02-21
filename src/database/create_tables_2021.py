@@ -10,7 +10,7 @@ print(con)
 print("Database opened successfully")
 
 # create tables 
-def createExpedientesLista():
+def createOrgPoliticaRegion():
     cur = con.cursor()
     cur.execute('''
     DROP TABLE IF EXISTS  jne.organizacion_politica_region;
@@ -38,7 +38,7 @@ def createExpedientesLista():
     print("Table organizacion_politica_region created successfully")
 
 
-def createGetCandidatos():
+def createInfoElectoral():
 
     cur = con.cursor()
     cur.execute('''
@@ -420,7 +420,8 @@ def createInfoAdicional():
         idHojaVida int,
         strInfoAdicional character varying,
         strTengoInfoAdicional character varying,
-        strUsuario character varying
+        strUsuario character varying,
+        fecha_registro TIMESTAMP DEFAULT now() NOT NULL
         );
     ''')
     con.commit()
@@ -447,7 +448,8 @@ def createIngresos():
         idHojaVida int,
         strAnioIngresos character varying,
         strTengoIngresos character varying,
-        strUsuario character varying
+        strUsuario character varying,
+        fecha_registro TIMESTAMP DEFAULT now() NOT NULL
         );
     ''')
     con.commit()
@@ -473,7 +475,8 @@ def createBienMueble():
         strPlaca character varying,
         strTengoBienMueble character varying,
         strUsuario character varying,
-        strVehiculo character varying
+        strVehiculo character varying,
+        fecha_registro TIMESTAMP DEFAULT now() NOT NULL
         );
     ''')
     con.commit()
@@ -510,7 +513,9 @@ def createBienInMueble():
         strTengoInmueble character varying,
         strTipoBienInmueble character varying,
         strUbigeoInmueble character varying,
-        strUsuario character varying
+        strUsuario character varying,
+        fecha_registro TIMESTAMP DEFAULT now() NOT NULL
+
         );
     ''')
     con.commit()
@@ -549,7 +554,8 @@ def createPlanDeGobierno():
         strRutaArchivo  character varying,
         strExisteArchivoFisico  character varying,
         strPlanGobiernoExistente character varying,
-        strFechaResumenGenerado  character varying
+        strFechaResumenGenerado  character varying,
+        fecha_registro TIMESTAMP DEFAULT now() NOT NULL
         );
     ''')
     con.commit()
@@ -573,7 +579,8 @@ def createPlanDeGobiernoDimensiones():
         strUsuario  character varying,
         idEstado  int,
         idPGDimension  int,
-        intPorcentaje  int
+        intPorcentaje  int,
+        fecha_registro TIMESTAMP DEFAULT now() NOT NULL
         );
     ''')
     con.commit()
@@ -582,25 +589,24 @@ def createPlanDeGobiernoDimensiones():
 
 
 
-
-# createExpedientesLista()
-# createGetCandidatos()
-# createInfoPersonal()
-# createExpLab()
-# createEduPostGrado()
-# createEduUni()
-# createEduTecnica()
-# createEduNoUni()
-# createEduBasic()
-# createSentPenal()
-# createSentCivil()
-# createCargoPartidario()
-# createCargoEleccion()
-# createInfoAdicional()
-# createIngresos()
-# createBienMueble()
-# createBienInMueble()
-# createPlanDeGobierno()
+createOrgPoliticaRegion()
+createInfoElectoral()
+createInfoPersonal()
+createExpLab()
+createEduPostGrado()
+createEduUni()
+createEduTecnica()
+createEduNoUni()
+createEduBasic()
+createSentPenal()
+createSentCivil()
+createCargoPartidario()
+createCargoEleccion()
+createInfoAdicional()
+createIngresos()
+createBienMueble()
+createBienInMueble()
+createPlanDeGobierno()
 createPlanDeGobiernoDimensiones()
 
 con.close()

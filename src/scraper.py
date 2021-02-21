@@ -5,7 +5,7 @@ import json
 import sys
 import datetime
 
-import schedule
+# import schedule
 import time
 
 from requests.adapters import HTTPAdapter
