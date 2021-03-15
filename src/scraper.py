@@ -108,42 +108,43 @@ def GetCandidatos():
 
 def GetPersonalData():
   print(f'Start getting Data to CandidatoDatosHV.json at {datetime.datetime.now()}')
+  try:
+    with open(f'./currentRawData/GetCandidatos.json', 'r', encoding='utf-8')as outFile:
+      doc = outFile.read()
+      arrayCandidatos = json.loads(str(doc))
+      canditadosHVDatos = []
+      counter = 0
+      idHojasDeVida = []
 
-  with open(f'./currentRawData/GetCandidatos.json', 'r', encoding='utf-8')as outFile:
-    doc = outFile.read()
-    arrayCandidatos = json.loads(str(doc))
-    canditadosHVDatos = []
-    counter = 0
-    idHojasDeVida = []
+      for CANDIDATO in arrayCandidatos:
+        if CANDIDATO["idHojaVida"] in idHojasDeVida:
+          print(f'candidato repetido {CANDIDATO["idHojaVida"]}')
+        else:
+          try:
+            urlCandidatoListarPorID = f'https://plataformaelectoral.jne.gob.pe/HojaVida/GetHVConsolidado?param={CANDIDATO["idHojaVida"]}-0-{CANDIDATO["idOrganizacionPolitica"]}-{CANDIDATO["idProcesoElectoral"]}'
+            agent = {"User-Agent":"Mozilla/5.0"}
+            session = requests.Session()
+            retry = Retry(connect=3, backoff_factor=0.5)
+            adapter = HTTPAdapter(max_retries=retry)
+            session.mount('http://', adapter)
+            session.mount('https://', adapter)   
+            r = session.get(urlCandidatoListarPorID, headers=agent)
 
-    for CANDIDATO in arrayCandidatos:
-      if CANDIDATO["idHojaVida"] in idHojasDeVida:
-        print(f'candidato repetido {CANDIDATO["idHojaVida"]}')
-      else:
-        try:
-          urlCandidatoListarPorID = f'https://plataformaelectoral.jne.gob.pe/HojaVida/GetHVConsolidado?param={CANDIDATO["idHojaVida"]}-0-{CANDIDATO["idOrganizacionPolitica"]}-{CANDIDATO["idProcesoElectoral"]}'
-          agent = {"User-Agent":"Mozilla/5.0"}
-          session = requests.Session()
-          retry = Retry(connect=3, backoff_factor=0.5)
-          adapter = HTTPAdapter(max_retries=retry)
-          session.mount('http://', adapter)
-          session.mount('https://', adapter)   
-          r = session.get(urlCandidatoListarPorID, headers=agent)
+            data = r.json()
+            candidatoHV = data["data"]
+            counter = counter + 1
+            canditadosHVDatos.append(candidatoHV)
+            idHojasDeVida.append(CANDIDATO["idHojaVida"])
 
-          data = r.json()
-          candidatoHV = data["data"]
-          counter = counter + 1
-          canditadosHVDatos.append(candidatoHV)
-          idHojasDeVida.append(CANDIDATO["idHojaVida"])
+          except:
+            print("CRASH OBTENIENDO LA HOJA DE VIDA")
+        
+      with open('./currentRawData/CandidatoDatosHV.json', 'w') as json_file:
+        json.dump(canditadosHVDatos, json_file)
+      print(f'END getting Data to CandidatoDatosHV.json at {datetime.datetime.now()}')
 
-        except:
-          print("CRASH OBTENIENDO LA HOJA DE VIDA")
-      
-    with open('./currentRawData/CandidatoDatosHV.json', 'w') as json_file:
-      json.dump(canditadosHVDatos, json_file)
-    print(f'END getting Data to CandidatoDatosHV.json at {datetime.datetime.now()}')
-
-
+  except:
+    print("CRASH sving the data  CandidatoDatosHV")
 
 
 
